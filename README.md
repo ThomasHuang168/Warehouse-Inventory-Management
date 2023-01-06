@@ -1,6 +1,9 @@
 # Warehouse-Inventory-Management
 a python script that manage Inventory in a warehouse
 
+## Update
+20230106 gui print labels
+
 ## Design consideration
 - print a A4 sheet of qr-code, barcode and name label
 - manage location with google sheet and pandas
