@@ -2,7 +2,8 @@
 a python script that manage Inventory in a warehouse
 
 ## Update
-20230106 gui print labels
+20230107: remove the prev labels before generate the new one
+20230106: gui print labels
 
 ## Design consideration
 - print a A4 sheet of qr-code, barcode and name label

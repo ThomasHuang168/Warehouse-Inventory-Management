@@ -141,7 +141,8 @@ class code_label_gui:
         # sheet.add_label("Oversized label here")
 
         # Save the file and we are done.
-        sheet.save(str(Path(self.ent_excel_file.get()).with_suffix(".pdf")))
+        (path_labal := Path(self.ent_excel_file.get()).with_suffix(".pdf")).unlink(missing_ok=True)
+        sheet.save(str(path_labal))
         print(
             "{0:d} label(s) output on {1:d} page(s).".format(
                 sheet.label_count, sheet.page_count
