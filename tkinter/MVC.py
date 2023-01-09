@@ -1,17 +1,9 @@
 import re
 import tkinter as tk
 from tkinter import ttk
-from typing import Union
-import pandas as pd
 
 
 class Model:
-    """
-    sqlite models
-    create empty table if path is None
-    decorate sql syntax with function call
-    """
-
     def __init__(self, email):
         self.email = email
 
@@ -42,67 +34,29 @@ class Model:
 
 
 class View(ttk.Frame):
-    """
-    use notebook and frame to manage add_box, search_book, generate_guid
-
-    add_box:
-    entry to take box guid
-    text to take books' guid and isbn id
-    button to save information
-
-    search_book:
-    entry to take book or box guid
-    button to triiger search and display result
-    text to display result and save updates
-    button to trigger save result
-    button to abort changes (back)
-
-    generate_guid:
-    entry to specify number of labels to be printed
-    button to trigger the pdf generation and create entry to table
-    """
-
     def __init__(self, parent):
         super().__init__(parent)
 
         # create widgets
-        # create notebook
-        notebook = ttk.Notebook(self)
-        notebook.pack(pady=10, expand=True)
-
-        frame_srh_book = ttk.Frame(notebook)
-        frame_srh_book.pack(fill="both", expand=True)
-        notebook.add(frame_srh_book, text="Search Book")
-
-        frame_add_box = ttk.Frame(notebook)
-        frame_add_box.pack(fill="both", expand=True)
-        notebook.add(frame_add_box, text="Add Box")
-
-        frame_add_guid = ttk.Frame(notebook)
-        frame_add_guid.pack(fill="both", expand=True)
-        notebook.add(frame_add_guid, text="Labels")
-
         # label
-        self.label = ttk.Label(frame_srh_book, text="Email:")
+        self.label = ttk.Label(self, text="Email:")
         self.label.grid(row=1, column=0)
 
         # email entry
         self.email_var = tk.StringVar()
         self.email_entry = ttk.Entry(
-            frame_srh_book, textvariable=self.email_var, width=30
+            self, textvariable=self.email_var, width=30
         )
         self.email_entry.grid(row=1, column=1, sticky=tk.NSEW)
 
         # save button
         self.save_button = ttk.Button(
-            frame_srh_book, text="Save", command=self.save_button_clicked
+            self, text="Save", command=self.save_button_clicked
         )
         self.save_button.grid(row=1, column=3, padx=10)
 
         # message
-        self.message_label = ttk.Label(
-            frame_srh_book, text="", foreground="red"
-        )
+        self.message_label = ttk.Label(self, text="", foreground="red")
         self.message_label.grid(row=2, column=1, sticky=tk.W)
 
         # set the controller
