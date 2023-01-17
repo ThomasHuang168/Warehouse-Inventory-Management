@@ -1,11 +1,16 @@
 # Warehouse-Inventory-Management
+
 a python script that manage Inventory in a warehouse
 
 ## Update
+
+20230117: add gui text editor code
+
 20230107: remove the prev labels before generate the new one
 20230106: gui print labels
 
 ## Design consideration
+
 - print a A4 sheet of qr-code, barcode and name label
 - manage location with google sheet and pandas
   - how large can a google sheet be?
@@ -14,7 +19,7 @@ a python script that manage Inventory in a warehouse
     - classes
     - boxes [a special instance: NOT-for-sale]
     - locations [also a kind of ]
-  - how to unqiue ID code for 
+  - how to unqiue ID code for
     - instances
     - classes
       - redundancy?
@@ -29,9 +34,11 @@ a python script that manage Inventory in a warehouse
     - how small is one time interval
 
 ## implementation and testing stages
+
 ### Feedback from Mary stage
--   simple pandas manipulation
-    -   one table for book instances map to box id
-    -   box table link to [google drive] folder [path/link] inside which the picture of box is included and show its location
-    -   one simple GUI to for add books, boxs, put books into boxes and remove books. 
-    -   one simple labels text labels in three different formats barcode, qr-code and text.
+
+- simple pandas manipulation
+  - one table for book instances map to box id
+  - box table link to [google drive] folder [path/link] inside which the picture of box is included and show its location
+  - one simple GUI to for add books, boxs, put books into boxes and remove books.
+  - one simple labels text labels in three different formats barcode, qr-code and text.
