@@ -4,9 +4,12 @@ a python script that manage Inventory in a warehouse
 
 ## Update
 
+20230128: add gui working
+
 20230117: add gui text editor code
 
 20230107: remove the prev labels before generate the new one
+
 20230106: gui print labels
 
 ## Design consideration

@@ -27,6 +27,16 @@ import time
 from subprocess import Popen, PIPE, STDOUT
 from threading import Thread
 import json
+import isbnlib
+from yaml import load, dump
+
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
+import pandas as pd
+
+from pathlib import Path
 
 info = logging.getLogger(__name__).info
 
@@ -64,7 +74,7 @@ class add_book_gui:
 
         # Search Button
         self.btn_Search = ttk.Button(
-            master, text="Search", command=self.browsefunc_search
+            master, text="Search ISBN", command=self.browsefunc_search
         )
         self.btn_Search.grid(row=i_row, column=2)
 
@@ -91,19 +101,52 @@ class add_book_gui:
         self.btn_Save.grid(row=i_row, column=2)
 
     def browsefunc_search(self):
-        # try to show the list of
-        pass
+        # try to show the list of meta
+        _meta: dict[str, str] = {
+            "Location": self.ent_Location.get(),
+            "ID": self.ent_BookID.get(),
+            "ISBN-13": "",
+            "Title": "",
+            "Authors": "",
+            "Publisher": "",
+            "Year": "",
+            "Language": "",
+        }
+        try:
+            _meta.update(isbnlib.meta(self.ent_ISBN.get()))
+        except:
+            pass
+        self.txt_Meta.delete("1.0", END)
+        self.txt_Meta.insert(END, dump(_meta, Dumper=Dumper))
 
     def browsefunc_save(self):
-        pass
+        dict_row: dict[str] = load(
+            self.txt_Meta.get("1.0", END), Loader=Loader
+        )
+        target_path: Path = Path(r"C:\Users\Public\Downloads\book.csv")
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        if not target_path.exists():
+            with target_path.open("w") as fw:
+                fw.write(f'{", ".join(dict_row.keys())}\n')
+        dict_row["Authors"] = "|||".join(dict_row["Authors"])
+        with target_path.open("a") as fa:
+            fa.write(f'{", ".join(dict_row.values())}\n')
+        self.txt_Meta.delete("1.0", END)
 
-    def read_output(self):
-        pass
+    # def read_output(self):
+    #     pass
 
-    def show_stdout(self):
-        pass
+    # def show_stdout(self):
+    #     pass
 
     def stop(self):
+        """Stop subprocess and quit GUI."""
+        if self.__close:
+            return  # avoid killing subprocess more than once
+        self.__close = True
+
+        info("stopping")
+        self.master.destroy()  # exit GUI
         pass
 
 
