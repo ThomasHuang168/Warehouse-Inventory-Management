@@ -4,6 +4,8 @@ a python script that manage Inventory in a warehouse
 
 ## Update
 
+20230130: add ToDos and show ISBN when no found metas
+
 20230128: add gui working
 
 20230117: add gui text editor code
@@ -11,6 +13,12 @@ a python script that manage Inventory in a warehouse
 20230107: remove the prev labels before generate the new one
 
 20230106: gui print labels
+
+## ToDos
+
+1. Flexible Text windows
+2. `<Enter> Key to change fields, <tab> to switch fields`
+3. Error prompt for duplicate or
 
 ## Design consideration
 

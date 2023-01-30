@@ -105,7 +105,7 @@ class add_book_gui:
         _meta: dict[str, str] = {
             "Location": self.ent_Location.get(),
             "ID": self.ent_BookID.get(),
-            "ISBN-13": "",
+            "ISBN-13": self.ent_ISBN.get(),
             "Title": "",
             "Authors": "",
             "Publisher": "",
