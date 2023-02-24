@@ -107,7 +107,7 @@ class add_book_gui:
             "ID": self.ent_BookID.get(),
             "ISBN-13": self.ent_ISBN.get(),
             "Title": "",
-            "Authors": "",
+            "Authors": list(),
             "Publisher": "",
             "Year": "",
             "Language": "",

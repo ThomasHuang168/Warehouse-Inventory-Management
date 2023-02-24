@@ -31,22 +31,31 @@ import pandas as pd
 # object to draw on, the dimensions (NB. these will be in points, the unit
 # ReportLab uses) of the label, and the object to render.
 def draw_label(label, width, height, obj):
+    # objective of this function is to create a barcode and string underleave centered in the label
+    # the width and height of the barcode labels are not ertain
+    # their relationshio with text encoded is not known as well
+    # aligh center of barcode with center of label maximize tolerance of printing error
+    # afterthat, text should be aligned either above or below the barcode
 
     barcode_value = str(obj)
-    _qr = createBarcodeDrawing("QR", value=barcode_value)
-    # _qr.translate(0, 50)
-    label.add(_qr)
+    # _qr = createBarcodeDrawing("QR", value=barcode_value)
+    # # _qr.translate(0, 50)
+    # label.add(_qr)
 
     # barcode128 = code128.Code128(barcode_value)
     barcode128 = createBarcodeDrawing("Code128", value=barcode_value)
-    barcode128.translate(0, _qr.height)
+    # barcode128.translate(0, _qr.height)
     label.add(barcode128)
     # Just convert the object to a string and print this at the bottom left of
     # the label.
     _text_len_per_line = 12  # find a way to not hardcoding this
     _text_len = len(str(obj))
-    _text_top = _qr.height - barcode128.height
+    _text_top = 0
+    # _text_top += _qr.height
+    _text_top += barcode128.height
     _text_height = 20
+    _text_left = 0
+    # _text_left += _qr.width
     for _line_index, (_line_start, _line_end) in enumerate(
         [
             (_i, min((_i + _text_len_per_line), _text_len))
@@ -54,7 +63,7 @@ def draw_label(label, width, height, obj):
         ]
     ):
         _Text = shapes.String(
-            _qr.width,
+            _text_left,
             _text_top - _line_index * _text_height,
             str(obj)[_line_start:_line_end],
             fontName="Helvetica",
@@ -116,7 +125,22 @@ class code_label_gui:
         # Create an A4 portrait (210mm x 297mm) sheets with 2 columns and 8 rows of
         # labels. Each label is 90mm x 25mm with a 2mm rounded corner. The margins are
         # automatically calculated.
-        specs = labels.Specification(210, 297, 2, 6, 90, 45, corner_radius=2)
+        # specs = labels.Specification(210, 297, 2, 6, 90, 45, corner_radius=2)
+        specs = labels.Specification(
+            210,
+            297,
+            5,
+            13,
+            38,
+            21,
+            corner_radius=2,
+            left_margin=6,
+            right_margin=6,
+            column_gap=2,
+            row_gap=0,
+            top_margin=11,
+            bottom_margin=13,
+        )
 
         _df_labels = pd.read_excel(self.ent_excel_file.get(), header=None)
         list_labels = _df_labels[0].to_list()

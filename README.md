@@ -4,6 +4,8 @@ a python script that manage Inventory in a warehouse
 
 ## Update
 
+20230224: add code_label_without_QR
+
 20230130: add ToDos and show ISBN when no found metas
 
 20230128: add gui working
